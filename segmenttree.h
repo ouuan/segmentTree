@@ -86,25 +86,6 @@ private:
         build(1, leftRange, rightRange, _initValue);
     }
     
-    void init(int _leftRange,
-              int _rightRange,
-              const std::vector<valueType>& _initValue,
-              const valueType& _zero)
-    {
-        leftRange = _leftRange;
-        rightRange = _rightRange;
-        init(_initValue, _zero);
-    }
-    
-    void init(int size,
-              const std::vector<valueType>& _initValue,
-              const valueType& _zero)
-    {
-        leftRange = 1;
-        rightRange = size + 1;
-        init(_initValue, _zero);
-    }
-    
     void modify(int cur, int l, int r, int L, int R, const tagType& tag)
     {
         if (l >= R || r <= L) return;
@@ -123,7 +104,8 @@ private:
         if (l >= R || r <= L) return zero;
         if (L <= l && r <= R) return nodes[cur].val;
         pushdown(cur);
-        return merge(query(cur << 1, l, (l + r) >> 1, L, R), query(cur << 1 | 1, (l + r) >> 1, r, L, R));
+        return merge(query(cur << 1, l, (l + r) >> 1, L, R),
+                     query(cur << 1 | 1, (l + r) >> 1, r, L, R));
     }
     
 public:
@@ -134,14 +116,18 @@ public:
                 const std::vector<valueType>& _initValue,
                 const valueType& _zero)
     {
-        init(_leftRange, _rightRange, _initValue, _zero);
+        leftRange = _leftRange;
+        rightRange = _rightRange;
+        init(_initValue, _zero);
     }
     
     segmentTree(int size,
                 const std::vector<valueType>& _initValue,
                 const valueType& _zero)
     {
-        init(size, _initValue, _zero);
+        leftRange = 1;
+        rightRange = size + 1;
+        init(_initValue, _zero);
     }
     
     void modify(int l, int r, const tagType& tag)
