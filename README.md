@@ -74,7 +74,7 @@ In this example, a **value** is an integer, to **merge** is to add two integers 
 
 ### The segment tree
 
-Second, you have to know what a segment tree is, and the lazy-tag tech. You can find many resources about it on the Internet.
+Second, you have to know what a segment tree is, and the [lazy propagation tech](https://www.geeksforgeeks.org/lazy-propagation-in-segment-tree/) (which is called "lazy-tag" in this guidebook). You can find many resources about it on the Internet.
 
 Then, we can find that, in most segment tree problems, the only difference is the type of **value**, how to **merge**, and how to perform **modification**. And the **modification** is the same as pushing down a lazy-**tag**.
 
