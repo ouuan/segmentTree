@@ -65,7 +65,7 @@ int main()
         init[i - 1] = pli(a[i], 0);
     }
     
-    segmentTree<pli, Tag> t(n, init, pli(0, 0), merge, update);
+    segmentTree<pli, Tag, merge, update> t(n, init, pli(0, 0));
     
     for (int i = 1; i <= n; ++i)
     {

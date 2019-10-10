@@ -4,7 +4,7 @@
 typedef long long ll;
 
 int n, m;
-vector<ll> a;
+std::vector<ll> a;
 
 ll merge(ll x, ll y)
 {
@@ -23,7 +23,7 @@ int main()
     a.resize(n);
     for (int i = 0; i < n; ++i) scanf("%lld", &a[i]);
     
-    segmentTree<ll, int> t(n, a, 0, merge, update);
+    segmentTree<ll, int, merge, update> t(n, a, 0);
     
     while (m--)
     {

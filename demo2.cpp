@@ -4,7 +4,7 @@
 typedef long long ll;
 
 int n, m, p;
-vector<int> a;
+std::vector<int> a;
 
 struct Tag
 {
@@ -35,7 +35,7 @@ int main()
     a.resize(n);
     for (int i = 0; i < n; ++i) scanf("%d", &a[i]);
     
-    segmentTree<int, Tag> t(n, a, 0, merge, update);
+    segmentTree<int, Tag, merge, update> t(n, a, 0);
     
     while (m--)
     {

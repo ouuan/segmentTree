@@ -86,6 +86,8 @@ First, you have to `#include "segmenttree.h"` (and put the header file in the sa
 
 To construct a segment tree, you have to choose a type for the **value**, a type for the **tag** (the same as **modification**), implement the `merge` function and the `update` function.
 
+The declaration: `segmentTree<valueType, tagType, merge, update>`.
+
 #### Value
 
 - supports the `=` operator

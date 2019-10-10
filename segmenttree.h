@@ -32,8 +32,6 @@ SOFTWARE.
 
 #include <vector>
 
-using std::vector;
-
 template<typename valueType, typename tagType>
 class segmentTreeNode
 {
@@ -43,37 +41,30 @@ public:
     tagType tag;
 };
 
-template<typename valueType, typename tagType>
+template<typename valueType,
+         typename tagType,
+         valueType (*merge)(valueType, valueType),
+         void (*update)(segmentTreeNode<valueType, tagType>&, tagType)>
 class segmentTree
 {
-#define ls (cur << 1)
-#define rs (cur << 1 | 1)
-#define mid ((l + r) >> 1)
-
-public:
-    typedef segmentTreeNode<valueType, tagType> nodeType;
-    
 private:
     int leftRange, rightRange;
-    vector<valueType> initValue;
-    vector<nodeType> nodes;
-    valueType (*merge)(valueType, valueType);
-    void (*update)(nodeType&, tagType);
+    std::vector<segmentTreeNode<valueType, tagType> > nodes;
     valueType zero;
     
     void pushup(int cur)
     {
-        nodes[cur].val = merge(nodes[ls].val, nodes[rs].val);
+        nodes[cur].val = merge(nodes[cur << 1].val, nodes[cur << 1 | 1].val);
     }
     
     void pushdown(int cur)
     {
-        update(nodes[ls], nodes[cur].tag);
-        update(nodes[rs], nodes[cur].tag);
+        update(nodes[cur << 1], nodes[cur].tag);
+        update(nodes[cur << 1 | 1], nodes[cur].tag);
         nodes[cur].tag = 0;
     }
     
-    void build(int cur, int l, int r)
+    void build(int cur, int l, int r, const std::vector<valueType>& initValue)
     {
         nodes[cur].left = l;
         nodes[cur].right = r;
@@ -81,46 +72,37 @@ private:
         if (l == r - 1) nodes[cur].val = initValue[l - leftRange];
         else
         {
-            build(ls, l, mid);
-            build(rs, mid, r);
+            build(cur << 1, l, (l + r) >> 1, initValue);
+            build(cur << 1 | 1, (l + r) >> 1, r, initValue);
             pushup(cur);
         }
     }
     
-    void init(const vector<valueType>& _initValue,
-              const valueType& _zero,
-              valueType (*_merge)(valueType, valueType),
-              void (*_update)(nodeType&, tagType))
+    void init(const std::vector<valueType>& _initValue,
+              const valueType& _zero)
     {
-        initValue = _initValue;
         zero = _zero;
-        merge = _merge;
-        update = _update;
         nodes.resize((rightRange - leftRange) << 2);
-        build(1, leftRange, rightRange);
+        build(1, leftRange, rightRange, _initValue);
     }
     
     void init(int _leftRange,
               int _rightRange,
-              const vector<valueType>& _initValue,
-              const valueType& _zero,
-              valueType (*_merge)(valueType, valueType),
-              void (*_update)(nodeType&, tagType))
+              const std::vector<valueType>& _initValue,
+              const valueType& _zero)
     {
         leftRange = _leftRange;
         rightRange = _rightRange;
-        init(_initValue, _zero, _merge, _update);
+        init(_initValue, _zero);
     }
     
     void init(int size,
-              const vector<valueType>& _initValue,
-              const valueType& _zero,
-              valueType (*_merge)(valueType, valueType),
-              void (*_update)(nodeType&, tagType))
+              const std::vector<valueType>& _initValue,
+              const valueType& _zero)
     {
         leftRange = 1;
         rightRange = size + 1;
-        init(_initValue, _zero, _merge, _update);
+        init(_initValue, _zero);
     }
     
     void modify(int cur, int l, int r, int L, int R, const tagType& tag)
@@ -130,8 +112,8 @@ private:
         else
         {
             pushdown(cur);
-            modify(ls, l, mid, L, R, tag);
-            modify(rs, mid, r, L, R, tag);
+            modify(cur << 1, l, (l + r) >> 1, L, R, tag);
+            modify(cur << 1 | 1, (l + r) >> 1, r, L, R, tag);
             pushup(cur);
         }
     }
@@ -141,7 +123,7 @@ private:
         if (l >= R || r <= L) return zero;
         if (L <= l && r <= R) return nodes[cur].val;
         pushdown(cur);
-        return merge(query(ls, l, mid, L, R), query(rs, mid, r, L, R));
+        return merge(query(cur << 1, l, (l + r) >> 1, L, R), query(cur << 1 | 1, (l + r) >> 1, r, L, R));
     }
     
 public:
@@ -149,21 +131,17 @@ public:
     
     segmentTree(int _leftRange,
                 int _rightRange,
-                const vector<valueType>& _initValue,
-                const valueType& _zero,
-                valueType (*_merge)(valueType, valueType),
-                void (*_update)(nodeType&, tagType))
+                const std::vector<valueType>& _initValue,
+                const valueType& _zero)
     {
-        init(_leftRange, _rightRange, _initValue, _zero, _merge, _update);
+        init(_leftRange, _rightRange, _initValue, _zero);
     }
     
     segmentTree(int size,
-                const vector<valueType>& _initValue,
-                const valueType& _zero,
-                valueType (*_merge)(valueType, valueType),
-                void (*_update)(nodeType&, tagType))
+                const std::vector<valueType>& _initValue,
+                const valueType& _zero)
     {
-        init(size, _initValue, _zero, _merge, _update);
+        init(size, _initValue, _zero);
     }
     
     void modify(int l, int r, const tagType& tag)
@@ -185,10 +163,6 @@ public:
     {
         return query(p, p + 1);
     }
-
-#undef ls
-#undef rs
-#undef mid
 };
 
 #endif
