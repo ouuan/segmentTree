@@ -64,7 +64,7 @@ First, let's define a problem which can be solved by a segment tree (the version
 
 There is a sequence of **value**s a[1..n], and the **value**s are **merge**-able, which means you can **merge** two **value**s into one. If we merge x and y, we will get x + y, and the **value** of a subsequence a[l..r] is a[l] + a[l + 1] + … + a[r]. We can also perform **modification** to a **value**.
 
-(If you are familar with abstract algebra, you'll find that the **value**s form a monoid group.)
+(If you are familar with abstract algebra, you'll find that the **value**s form a [monoid](https://en.wikipedia.org/wiki/Monoid).)
 
 The problem is: give you a sequence, you have to do perform **modification** to some subsegment, or report the **value** of some subsegment.
 
