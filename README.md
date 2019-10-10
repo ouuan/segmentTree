@@ -130,7 +130,7 @@ public:
 
 `segmentTree(int _leftRange, int _rightRange, const vector<valueType>& _initValue, const valueType& _zero, valueType (*_merge)(valueType, valueType), void (*_update)(nodeType&, tagType))`: construct a segment tree represents for the segment [\_leftRange, \_rightRange), initially a[i] = _initValue[i - \_leftRange], the identity element of values is \_zero, the merge function and the update function.
 
-`segmentTree(int size, const vector<valueType>& _initValue, const valueType& _zero, valueType (*_merge)(valueType, valueType), void (*_update)(nodeType&, tagType))`: nearly the same as the previous one, but represent for the segment [1, n].
+`segmentTree(int size, const vector<valueType>& _initValue, const valueType& _zero, valueType (*_merge)(valueType, valueType), void (*_update)(nodeType&, tagType))`: nearly the same as the previous one, but represent for the segment [1, size].
 
 `void modify(int l, int r, const tagType& tag)`: perform modification of tag to the subsegment [l, r).
 
