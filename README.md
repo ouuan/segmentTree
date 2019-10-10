@@ -66,7 +66,7 @@ There is a sequence of **value**s a[1..n], and the **value**s are **merge**-able
 
 (If you are familar with abstract algebra, you'll find that the **value**s form a [monoid](https://en.wikipedia.org/wiki/Monoid).)
 
-The problem is: give you a sequence, you have to do perform **modification** to some subsegment, or report the **value** of some subsegment.
+The problem is: give you a sequence, you have to perform **modification** to some subsegment, or report the **value** of some subsegment.
 
 For example: given you a sequence of integers, you have to either add x to a all integers of a subsegment or report the sum of a subsegment.
 
