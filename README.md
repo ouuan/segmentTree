@@ -98,7 +98,7 @@ To construct a segment tree, you have to choose a type for the **value**, a type
 
 #### merge
 
-- accepts two **value**s as parameter
+- accepts two **value**s as parameters
 - returns a single **value**, which is the result of merging the two parameters
 - The prototype: `valueType (*merge)(valueType, valueType)`
 
@@ -119,7 +119,7 @@ public:
 
 #### update
 
-- accepts a **node&** and a **tag** as parameter
+- accepts a **node&** and a **tag** as parameters
 - performs the modification **tag** to the **node**, returns nothing (void).
 - If lazy-tag is needed, update the tag, too. Remember that the tag is the same as the modification.
 - The prototype: `void (*update)(segmentTreeNode<valueType, tagType>&, tagType)`
