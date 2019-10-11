@@ -91,11 +91,13 @@ The declaration: `segmentTree<valueType, tagType, merge, update>`.
 #### Value
 
 - supports the `=` operator
+- has default constructor
 - have a special element **zero**, where **merge**(**zero**, x) = x for all possible **value** x. It can also be called "identity element". For example, it is 0 if merging is to add together, it is -INF (a very small value) if merging is to calculate the max.
 
 #### tag
 
 - supports the `=` operator
+- has default constructor
 - have a special element 0, and if you perform 0 to any **value**, the **value** keep unchanged. And in the codes, it has to be able to be assigned to 0, which can be done by implement a constructor which accepts 0 as the parameter.
 
 #### merge
