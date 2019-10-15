@@ -36,7 +36,7 @@ template<typename valueType, typename tagType>
 class segmentTreeNode
 {
 public:
-    int left, right;
+    int id, left, right;
     valueType val;
     tagType tag;
 };
@@ -66,6 +66,7 @@ private:
     
     void build(int cur, int l, int r, const std::vector<valueType>& initValue)
     {
+        nodes[cur].id = cur;
         nodes[cur].left = l;
         nodes[cur].right = r;
         nodes[cur].tag = 0;

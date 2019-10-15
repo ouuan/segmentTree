@@ -113,7 +113,7 @@ template<typename valueType, typename tagType>
 class segmentTreeNode
 {
 public:
-	int left, right;
+	int id, left, right;
 	valueType val;
 	tagType tag;
 };
