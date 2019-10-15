@@ -119,6 +119,7 @@ public:
 };
 ```
 
+- the `id` of the root is 1, the `id` of the left child of x is 2x, the `id` of the right child of x is 2x+1
 - the `left` and `right` represent for the subsegment [left, right)
 
 #### update
