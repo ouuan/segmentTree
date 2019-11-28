@@ -48,9 +48,10 @@ template<typename valueType,
 class segmentTree
 {
 private:
-    int leftRange, rightRange;
     std::vector<segmentTreeNode<valueType, tagType> > nodes;
-    valueType zero;
+    int leftRange, rightRange;
+    valueType valueZero;
+    tagType tagZero;
     
     void pushup(int cur)
     {
@@ -61,7 +62,7 @@ private:
     {
         update(nodes[cur << 1], nodes[cur].tag);
         update(nodes[cur << 1 | 1], nodes[cur].tag);
-        nodes[cur].tag = 0;
+        nodes[cur].tag = tagZero;
     }
     
     void build(int cur, int l, int r, const std::vector<valueType>& initValue)
@@ -69,7 +70,7 @@ private:
         nodes[cur].id = cur;
         nodes[cur].left = l;
         nodes[cur].right = r;
-        nodes[cur].tag = 0;
+        nodes[cur].tag = tagZero;
         if (l == r - 1) nodes[cur].val = initValue[l - leftRange];
         else
         {
@@ -80,9 +81,11 @@ private:
     }
     
     void init(const std::vector<valueType>& _initValue,
-              const valueType& _zero)
+              const valueType& _valueZero,
+              const tagType& _tagZero)
     {
-        zero = _zero;
+        valueZero = _valueZero;
+        tagZero = _tagZero;
         nodes.resize((rightRange - leftRange) << 2);
         build(1, leftRange, rightRange, _initValue);
     }
@@ -102,7 +105,7 @@ private:
     
     valueType query(int cur, int l, int r, int L, int R)
     {
-        if (l >= R || r <= L) return zero;
+        if (l >= R || r <= L) return valueZero;
         if (L <= l && r <= R) return nodes[cur].val;
         pushdown(cur);
         return merge(query(cur << 1, l, (l + r) >> 1, L, R),
@@ -115,20 +118,22 @@ public:
     segmentTree(int _leftRange,
                 int _rightRange,
                 const std::vector<valueType>& _initValue,
-                const valueType& _zero)
+                const valueType& _valueZero,
+                const tagType& _tagZero)
     {
         leftRange = _leftRange;
         rightRange = _rightRange;
-        init(_initValue, _zero);
+        init(_initValue, _valueZero, _tagZero);
     }
     
     segmentTree(int size,
                 const std::vector<valueType>& _initValue,
-                const valueType& _zero)
+                const valueType& _valueZero,
+                const tagType& _tagZero)
     {
         leftRange = 1;
         rightRange = size + 1;
-        init(_initValue, _zero);
+        init(_initValue, _valueZero, _tagZero);
     }
     
     void modify(int l, int r, const tagType& tag)

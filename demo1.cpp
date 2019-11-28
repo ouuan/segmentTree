@@ -1,5 +1,5 @@
-#include <cstdio>
 #include "segmenttree.h"
+#include <cstdio>
 
 typedef long long ll;
 
@@ -23,7 +23,7 @@ int main()
     a.resize(n);
     for (int i = 0; i < n; ++i) scanf("%lld", &a[i]);
     
-    segmentTree<ll, int, merge, update> t(n, a, 0);
+    segmentTree<ll, int, merge, update> t(n, a, 0, 0);
     
     while (m--)
     {

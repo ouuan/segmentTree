@@ -1,7 +1,7 @@
+#include "segmenttree.h"
 #include <cmath>
 #include <cstdio>
 #include <algorithm>
-#include "segmenttree.h"
 
 using namespace std;
 
@@ -65,7 +65,7 @@ int main()
         init[i - 1] = pli(a[i], 0);
     }
     
-    segmentTree<pli, Tag, merge, update> t(n, init, pli(0, 0));
+    segmentTree<pli, Tag, merge, update> t(n, init, pli(0, 0), Tag());
     
     for (int i = 1; i <= n; ++i)
     {

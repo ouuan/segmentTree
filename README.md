@@ -7,8 +7,8 @@ A Segment Tree Template
 [single element add, segment query for sum](https://loj.ac/problem/130): [demo1.cpp](demo1.cpp)
 
 ```cpp
-#include <cstdio>
 #include "segmenttree.h"
+#include <cstdio>
 
 typedef long long ll;
 
@@ -32,7 +32,7 @@ int main()
     a.resize(n);
     for (int i = 0; i < n; ++i) scanf("%lld", &a[i]);
     
-    segmentTree<ll, int, merge, update> t(n, a, 0);
+    segmentTree<ll, int, merge, update> t(n, a, 0, 0);
     
     while (m--)
     {
@@ -92,13 +92,13 @@ The declaration: `segmentTree<valueType, tagType, merge, update>`.
 
 - supports the `=` operator
 - has default constructor
-- have a special element **zero**, where **merge**(**zero**, x) = x for all possible **value** x. It can also be called "identity element". For example, it is 0 if merging is to add together, it is -INF (a very small value) if merging is to calculate the max.
+- have a special element **valueZero**, where `merge(valueZero, x) == x` and `merge(x, valueZero) == x` for all possible **value** x. It can also be called "identity element". For example, it is 0 if merging is to add together, it is -INF (a sufficiently negative number) if merging is to calculate the max.
 
 #### tag
 
 - supports the `=` operator
 - has default constructor
-- have a special element 0, and if you perform 0 to any **value**, the **value** keep unchanged. And in the codes, it has to be able to be assigned to 0, which can be done by implement a constructor which accepts 0 as the parameter.
+- have a special element **tagZero**, and if you perform **tagZero** to any **value**, the **value** keep unchanged. For example, it is 0 if modification is to add, it is INF (a sufficiently large number) if modification is to choose the smaller one.
 
 #### merge
 
@@ -133,9 +133,9 @@ public:
 
 `segmentTree()`: default constructor. The segment tree will be uninitialized, which may cause errors.
 
-`segmentTree(int _leftRange, int _rightRange, const vector<valueType>& _initValue, const valueType& _zero)`: construct a segment tree represents for the segment [\_leftRange, \_rightRange), initially a[i] = _initValue[i - \_leftRange], the identity element of values is \_zero.
+`segmentTree(int _leftRange, int _rightRange, const vector<valueType>& _initValue, const valueType& _valueZero, const tagType& _tagZero)`: construct a segment tree represents for the segment [`_leftRange`, `_rightRange`), initially a[i] = `initValue[i - _leftRange]`, the identity element of values is `_valueZero`, the no-effect element of tags is `_tagZero`.
 
-`segmentTree(int size, const vector<valueType>& _initValue, const valueType& _zero)`: nearly the same as the previous one, but represent for the segment [1, size].
+`segmentTree(int size, const vector<valueType>& _initValue, const valueType& _valueZero, const tagType& _tagZero)`: the same as `segmentTree(1, size + 1, _initValue, _valueZero, _tagZero)`.
 
 `void modify(int l, int r, const tagType& tag)`: perform modification of tag to the subsegment [l, r).
 
