@@ -1,3 +1,9 @@
+This repository is DEPRECATED and NO LONGER MAINTAINED. You can use [the segment tree header](https://github.com/ouuan/CPTH/blob/master/headers/SegmentTree.h) in [CPTH](https://github.com/ouuan/CPTH) instead.
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+---
+
 # segmentTree
 
 A Segment Tree Template
